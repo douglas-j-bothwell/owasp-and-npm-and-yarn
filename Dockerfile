@@ -19,9 +19,7 @@ RUN sudo apt install build-essential
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-RUN export NVM_DIR="$HOME/.nvm" \
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
-[ -s "$NVM_DIR/bash_completion" ] && \. 
+RUN export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" -s "$NVM_DIR/bash_completion" ] && \. 
 
 
 # install yarn
