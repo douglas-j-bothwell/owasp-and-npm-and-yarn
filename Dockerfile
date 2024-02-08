@@ -42,6 +42,7 @@ ENV PATH="/root/.yarn/bin:$PATH"
 # install pnpm
 # https://vsys.host/how-to/how-to-install-pnpm-on-ubuntu-22-04
 # https://github.com/pnpm/pnpm/issues/5103
+RUN SHELL="bash:$SHELL"
 RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
 RUN npm install -g pnpm
 # ENV PATH="~/.local/share/pnpm:$PATH"
