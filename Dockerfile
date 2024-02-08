@@ -1,35 +1,19 @@
 FROM harness/owasp-dependency-check-job-runner:latest as scanner
 
-# https://stackoverflow.com/questions/36399848/install-node-in-dockerfile/3 ========================
-
 RUN apt-get update && apt-get install -y \
   ca-certificates \
   curl
 
-# ARG NODE_VERSION=14.16.0
-# ARG NODE_PACKAGE=node-v$NODE_VERSION-linux-x64
-# ARG NODE_HOME=/opt/$NODE_PACKAGE
+# install yarn
+# https://linuxize.com/post/how-to-install-yarn-on-ubuntu-20-04/
 
-# ENV NODE_PATH $NODE_HOME/lib/node_modules
-# ENV PATH $NODE_HOME/bin:$PATH
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+RUN sudo apt install yarn
+ENV PATH="/root/.yarn/bin:$PATH"
 
-# RUN curl https://nodejs.org/dist/v$NODE_VERSION/$NODE_PACKAGE.tar.gz | tar -xzC /opt/
-
-# comes with npm
-# RUN npm install -g typescript
-
-
-# https://github.com/yarnpkg/yarn/issues/749 ===============================================
-
-# RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-
-# RUN mkdir -p /usr/src/app
-# WORKDIR /usr/src/app
-
-# ARG NODE_ENV
-# ENV NODE_ENV $NODE_ENV
-
-# COPY . /usr/src/app
-
-RUN apk add --update nodejs npm
-RUN apk add yarn 
+# install pnpm
+# https://vsys.host/how-to/how-to-install-pnpm-on-ubuntu-22-04
+# https://github.com/pnpm/pnpm/issues/5103
+RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
+RUN sudo npm install -g pnpm
+ENV ENV PATH="~/.local/share/pnpm"
