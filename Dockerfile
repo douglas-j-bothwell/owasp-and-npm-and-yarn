@@ -15,6 +15,10 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 
 RUN sudo apt update
 RUN sudo apt install nodejs
+RUN sudo apt install build-essential
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
 
 # install yarn
 # https://linuxize.com/post/how-to-install-yarn-on-ubuntu-20-04/
