@@ -5,18 +5,16 @@ RUN apt-get update && apt-get install -y \
   curl
 
 # install npm
-ARG NODE_VERSION=14.16.0
-ARG NODE_PACKAGE=node-v$NODE_VERSION-linux-x64
-ARG NODE_HOME=/opt/$NODE_PACKAGE
+# https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/
+RUN sudo apt install ca-certificates curl gnupg
 
-ENV NODE_PATH $NODE_HOME/lib/node_modules
-ENV PATH $NODE_HOME/bin:$PATH
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
-RUN curl https://nodejs.org/dist/v$NODE_VERSION/$NODE_PACKAGE.tar.gz | tar -xzC /opt/
+RUN NODE_MAJOR=20
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
-# comes with npm
-RUN npm install -g typescript
-
+RUN sudo apt update
+RUN sudo apt install nodejs
 
 # install yarn
 # https://linuxize.com/post/how-to-install-yarn-on-ubuntu-20-04/
