@@ -4,6 +4,9 @@ RUN apt-get update && apt-get install -y \
   ca-certificates \
   curl
 
+# install sudo
+RUN apt install sudo
+
 # install npm
 # https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/
 RUN sudo apt install ca-certificates curl gnupg
