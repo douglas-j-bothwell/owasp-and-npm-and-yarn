@@ -19,6 +19,10 @@ RUN sudo apt install build-essential
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
+RUN export NVM_DIR="$HOME/.nvm" \
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
+[ -s "$NVM_DIR/bash_completion" ] && \. 
+
 
 # install yarn
 # https://linuxize.com/post/how-to-install-yarn-on-ubuntu-20-04/
