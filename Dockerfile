@@ -16,4 +16,4 @@ ENV PATH="/root/.yarn/bin:$PATH"
 # https://github.com/pnpm/pnpm/issues/5103
 RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
 RUN npm install -g pnpm
-ENV PATH="~/.local/share/pnpm:$PATH"
+# ENV PATH="~/.local/share/pnpm:$PATH"
