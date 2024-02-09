@@ -1,35 +1,56 @@
 FROM harness/owasp-dependency-check-job-runner:latest as scanner
 
-# https://stackoverflow.com/questions/36399848/install-node-in-dockerfile/3 ========================
-
 RUN apt-get update && apt-get install -y \
   ca-certificates \
   curl
 
-# ARG NODE_VERSION=14.16.0
-# ARG NODE_PACKAGE=node-v$NODE_VERSION-linux-x64
-# ARG NODE_HOME=/opt/$NODE_PACKAGE
+# install sudo
+RUN apt install sudo
 
-# ENV NODE_PATH $NODE_HOME/lib/node_modules
-# ENV PATH $NODE_HOME/bin:$PATH
+# install npm
+# https://askubuntu.com/questions/720784/how-to-install-latest-node-inside-a-docker-container
+RUN apt update
+# We directly answer the questions asked using the printf statement
+RUN printf 'y\n1\n\1n' | apt install nodejs
+RUN apt install -y npm
 
-# RUN curl https://nodejs.org/dist/v$NODE_VERSION/$NODE_PACKAGE.tar.gz | tar -xzC /opt/
+# https://askubuntu.com/questions/426750/how-can-i-update-my-nodejs-to-the-latest-version
+RUN sudo npm cache clean -f
+RUN sudo npm install -g n
+RUN sudo n stable
 
-# comes with npm
-# RUN npm install -g typescript
 
 
-# https://github.com/yarnpkg/yarn/issues/749 ===============================================
+# install npm
+# https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/
+# RUN sudo apt install ca-certificates curl gnupg -y
 
-# RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+# RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
-# RUN mkdir -p /usr/src/app
-# WORKDIR /usr/src/app
+# RUN NODE_MAJOR=20
+# RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
-# ARG NODE_ENV
-# ENV NODE_ENV $NODE_ENV
+# RUN sudo apt update
+# RUN sudo apt install nodejs -y
+# RUN sudo apt install build-essential -y
 
-# COPY . /usr/src/app
+# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-RUN apk add --update nodejs npm
-RUN apk add yarn 
+# RUN export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" -s "$NVM_DIR/bash_completion" ] && \. 
+
+
+# install yarn
+# https://linuxize.com/post/how-to-install-yarn-on-ubuntu-20-04/
+
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+RUN sudo apt install yarn -y
+ENV PATH="/root/.yarn/bin:$PATH"
+
+# install pnpm
+# https://vsys.host/how-to/how-to-install-pnpm-on-ubuntu-22-04
+# https://github.com/pnpm/pnpm/issues/5103
+RUN SHELL="bash:$SHELL"
+# RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
+RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
+RUN npm install -g pnpm
+ENV PATH="~/.local/share/pnpm:$PATH"
