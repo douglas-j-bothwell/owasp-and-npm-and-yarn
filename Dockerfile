@@ -14,7 +14,7 @@ RUN apt update
 RUN printf 'y\n1\n\1n' | apt install nodejs
 RUN apt install -y npm
 
-RUN npm install -g js-beautify
+RUN apt install jq
 
 # install npm
 # https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/
