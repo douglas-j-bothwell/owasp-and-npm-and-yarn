@@ -16,7 +16,7 @@ RUN apt install -y npm
 
 # https://askubuntu.com/questions/426750/how-can-i-update-my-nodejs-to-the-latest-version
 RUN sudo npm cache clean -f
-RUN sudo npm install -g n
+RUN sudo npm install -y -g n
 RUN sudo n stable
 
 
