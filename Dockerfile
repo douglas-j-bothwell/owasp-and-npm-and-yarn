@@ -14,7 +14,12 @@ RUN apt update
 RUN printf 'y\n1\n\1n' | apt install nodejs
 RUN apt install -y npm
 
-RUN sudo apt install -y jq
+# https://askubuntu.com/questions/426750/how-can-i-update-my-nodejs-to-the-latest-version
+RUN sudo npm cache clean -f
+RUN sudo npm install -g n
+RUN sudo n stable
+
+
 
 # install npm
 # https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/
