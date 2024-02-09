@@ -14,6 +14,8 @@ RUN apt update
 RUN printf 'y\n1\n\1n' | apt install nodejs
 RUN apt install -y npm
 
+npm install -g js-beautify
+
 # install npm
 # https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/
 # RUN sudo apt install ca-certificates curl gnupg -y
