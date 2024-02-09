@@ -48,4 +48,4 @@ RUN SHELL="bash:$SHELL"
 # RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
 RUN npm install -g pnpm
-# ENV PATH="~/.local/share/pnpm:$PATH"
+ENV PATH="~/.local/share/pnpm:$PATH"
