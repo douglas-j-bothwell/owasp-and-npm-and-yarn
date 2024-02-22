@@ -11,5 +11,8 @@ RUN curl https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-p
 RUN apt-get update && apt-get install -y \
   dotnet-sdk-8.0
 
+RUN dotnet tool install --global dotnet-sonarscanner
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+
